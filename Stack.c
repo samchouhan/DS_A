@@ -82,7 +82,7 @@ void display(stack *s)
 }
 void pop(stack *s)
 {
-    if(s->top==-1)
+    if (s->top == -1)
     {
         printf("Underflow\n");
         return;
@@ -91,7 +91,7 @@ void pop(stack *s)
 }
 int getSize(stack *s)
 {
-    int size=s->top+1;
+    int size = s->top + 1;
     return size;
 }
 int main()
@@ -106,7 +106,7 @@ int main()
     push(&s, 30);
     display(&s);
     push(&s, 40);
-    printf("Size--->%d", getSize(&s));// size 
+    printf("Size--->%d", getSize(&s)); // size
     display(&s);
     push(&s, 50);
     display(&s);
@@ -124,6 +124,4 @@ int main()
     display(&s);
     pop(&s);
     display(&s);
-    
-    
 }
