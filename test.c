@@ -1,120 +1,90 @@
-#include<stdio.h>
-void sort(int arr[], int n)
+#include <stdio.h>
+#include <stdlib.h>
+#define MS 4
+typedef struct
 {
-    for(int i=1;i<n;i++)
+    int arr[MS];
+    int front;
+    int rear;
+} queue;
+void init(queue *q)
+{
+    q->front = -1;
+    q->rear = -1;
+}
+void push(queue *q, int x)
+{
+    if (q->front == 0 && q->rear == MS - 1)
     {
-        while(i>0 && arr[i]<arr[i-1])
-        {
-            int temp=arr[i];
-            arr[i]=arr[i-1];
-            arr[i-1]=temp;
-            i--;
-
-        }
+        printf("Phul Bhar gaya hai Bhai!!\n");
+        return;
+    }
+    else if (q->front == -1 && q->rear == -1)
+    {
+        q->front = q->front + 1;
+        q->rear = q->rear + 1;
+        q->arr[q->front] = x;
+    }
+    else
+    {
+        q->rear = q->rear + 1;
+        q->arr[q->rear] = x;
     }
 }
-void merge(int arr[], int low, int mid, int high)
+int isempty(queue *q)
 {
-    int n1=mid-low+1;
-    int n2=high-mid;
-    int arr1[n1];
-    int arr2[n2];
-    for(int i=0;i<n1;i++)
-    {
-        arr1[i]=arr[i+low];
-    }
-    for(int i=0;i<n2;i++)
-    {
-        arr2[i]=arr[i+mid+1];
-    }
-    int i=0;
-    int j=0;
-    int k=low;
-    while(i<n1  && j<n2 )
-    {
-        if(arr1[i]<arr2[j])
-        {
-            arr[k]=arr1[i];
-            i++;
-            k++;
-        }
-        else
-        {
-            arr[k]=arr2[j];
-            k++;
-            j++;
-        }
-    }
-    while(i<n1)
-    {
-        arr[k]=arr1[i];
-        i++;
-        k++;
-    }
-    while(j<n2)
-    {
-        arr[k]=arr2[j];
-        k++;
-        j++;
-    }
+    return (q->front == -1 && q->rear == -1);
 }
-void merge_sort(int arr[], int low, int high)
+void display(queue *q)
 {
-    if(low<high)
+    if (isempty(q))
     {
-        int mid=(low+high)/2;
-        merge_sort(arr,low, mid);
-        merge_sort(arr, mid+1,high);
-        merge(arr, low, mid, high);
+        printf("Queue is empty\n");
+        return;
     }
-    
-       
-    
-}
-int partition(int arr[], int p, int r)
-{
-    int i=p-1;
-    int x=arr[r];
-    for(int j=p;j<=r-1;j++)
+    for (int i = q->front; i <= q->rear; i++)
     {
-        if(arr[j]<=x)
-        {
-            i++;
-            int temp=arr[i];
-            arr[i]=arr[j];
-            arr[j]=temp;
-        }
-    }
-    int temp=arr[i+1];
-    arr[i+1]=arr[r];
-    arr[r]=temp;
-    return i+1;
-}
-void quick_sort(int arr[], int p, int r)
-{   if(p<r)
-    {
-        int x=partition(arr,p,r);
-    quick_sort(arr,p,x-1);
-    quick_sort(arr,x+1,r);
-
-    }
-    
-}
-void display(int arr[], int n)
-{
-    for(int i=0;i<n;i++)
-    {
-        printf("%d  ", arr[i]);
+        printf("%d ", q->arr[i]);
     }
     printf("\n");
 }
+void pop(queue *q)
+{
+    if (q->front == q->rear)
+    {
+        q->front = -1;
+        q->rear = -1;
+    }
+    if (q->front == 0 && q->rear == 0)
+    {
+        q->front = -1;
+        q->rear = -1;
+    }
+    ++q->front;
+}
 int main()
 {
-    int arr[]={3,5,4,2,1};
-    int n=5;
-    display(arr, n);
-    // sort(arr,n);
-    merge_sort(arr,0,n);
-    // quick_sort(arr,0,n-1);
-    display(arr,n);
+    queue q;
+    init(&q);
+    push(&q, 10);
+    display(&q);
+    push(&q, 20);
+    display(&q);
+    push(&q, 30);
+    display(&q);
+    push(&q, 40);
+    display(&q);
+    push(&q, 50);
+    display(&q);
+    pop(&q);
+    display(&q);
+    pop(&q);
+    display(&q);
+    pop(&q);
+    display(&q);
+    pop(&q);
+    display(&q);
+    pop(&q);
+    display(&q);
+    
 }

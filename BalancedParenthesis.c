@@ -32,9 +32,9 @@ void push(stack *s, char x)
 
 char pop(stack *s)
 {
-    if (isEmpty(s))
+    if (s->top==-1)
     {
-        return '\0';  // return null character if empty
+        return;  // return null character if empty
     }
     return s->arr[(s->top)--];
 }
